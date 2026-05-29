@@ -78,9 +78,19 @@ function saveUsers() {
 }
 
 async function hashPassword(value) {
+  if (!crypto.subtle) return fallbackHash(value);
   const bytes = new TextEncoder().encode(value);
   const digest = await crypto.subtle.digest("SHA-256", bytes);
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+function fallbackHash(value) {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return `local-${(hash >>> 0).toString(16)}`;
 }
 
 function showAuth(message, isError = false) {
