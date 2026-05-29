@@ -1,0 +1,255 @@
+:root {
+  color-scheme: dark;
+  --bg: #050611;
+  --panel: #121629;
+  --panel-2: #1b213a;
+  --line: #2e3760;
+  --text: #f5f7ff;
+  --muted: #a8b2d8;
+  --yellow: #ffd426;
+  --cyan: #39d6ff;
+  --danger: #ff5f6c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button,
+select,
+input {
+  min-height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+
+button {
+  padding: 0 16px;
+  background: var(--yellow);
+  color: #161000;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+.app-shell {
+  min-height: 100svh;
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+}
+
+.screen {
+  min-height: calc(100svh - 26px);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.auth-screen {
+  display: grid;
+  place-items: center;
+}
+
+.auth-panel {
+  width: min(420px, 100%);
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.auth-panel h1 {
+  margin: 0 0 20px;
+  color: var(--yellow);
+  text-align: center;
+  font-size: clamp(2.4rem, 12vw, 4.7rem);
+  line-height: .9;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0 12px;
+  background: #070a18;
+  color: var(--text);
+}
+
+.button-row,
+.topbar-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.button-row button {
+  flex: 1 1 130px;
+}
+
+.message {
+  min-height: 22px;
+  margin: 14px 0 0;
+  color: var(--cyan);
+}
+
+.game-screen {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(76px, auto)) minmax(140px, 190px) auto;
+  align-items: end;
+  gap: 10px;
+}
+
+.stat {
+  min-height: 54px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.stat span,
+.difficulty span {
+  display: block;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.stat strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--yellow);
+  font-size: 1.25rem;
+}
+
+.difficulty {
+  margin: 0;
+}
+
+.playfield {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+canvas {
+  display: block;
+  width: min(100%, calc((100svh - 178px) * .9655));
+  max-width: 840px;
+  height: auto;
+  aspect-ratio: 28 / 29;
+  border: 1px solid #182ca7;
+  background: #02030b;
+}
+
+.overlay {
+  position: absolute;
+  inset: auto 16px 16px;
+  display: grid;
+  gap: 4px;
+  max-width: 440px;
+  margin: auto;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(7, 10, 24, .92);
+  text-align: center;
+}
+
+.overlay strong {
+  color: var(--yellow);
+  font-size: 1.35rem;
+}
+
+.overlay span {
+  color: var(--muted);
+}
+
+.touch-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 58px);
+  grid-template-areas:
+    ". up ."
+    "left down right";
+  justify-content: center;
+  gap: 8px;
+}
+
+.touch-pad button {
+  width: 58px;
+  height: 52px;
+  padding: 0;
+  background: var(--panel-2);
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.touch-pad [data-dir="up"] { grid-area: up; }
+.touch-pad [data-dir="left"] { grid-area: left; }
+.touch-pad [data-dir="down"] { grid-area: down; }
+.touch-pad [data-dir="right"] { grid-area: right; }
+
+@media (max-width: 720px) {
+  .topbar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .difficulty,
+  .topbar-actions {
+    grid-column: 1 / -1;
+  }
+
+  .topbar-actions button {
+    flex: 1 1 86px;
+    padding: 0 10px;
+  }
+
+  canvas {
+    width: min(100%, calc((100svh - 262px) * .9655));
+  }
+}
+
+@media (display-mode: standalone) {
+  .app-shell {
+    padding-top: max(14px, env(safe-area-inset-top));
+  }
+}

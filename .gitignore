@@ -1,0 +1,8 @@
+.idea/
+.sixth/
+.venv/
+__pycache__/
+*.pyc
+users.json
+.DS_Store
+Thumbs.db
